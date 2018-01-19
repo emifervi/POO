@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1516394015 source:c:\users\emife\documents\pruebarecursion\main.cpp
+	<iostream>
+	<string>
+	<fstream>
+	<stdlib.h>
+
+1516394015 source:c:\users\emife\documents\studentprofilereg\main.cpp
+	<iostream>
+	<string>
+	<fstream>
+	<stdlib.h>
+
