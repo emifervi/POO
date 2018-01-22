@@ -77,16 +77,10 @@ void AgeSearch(){
         cout << endl;
 
         // Scans file looking for the names and ages of the students.
-        while (!inFile.eof()){
+        while (inFile >> studentAge){
 
             // Gets the age and name and stores them in variables.
-            inFile >> studentAge;
             getline(inFile, studentName);
-
-            // Breaks the loop for it not to count more than it should in case there is a blank line.
-            if (inFile.eof()){
-                break;
-            }
 
             // Counts the number of students and prints the name and their age.
             if (studentAge > searchAge){
