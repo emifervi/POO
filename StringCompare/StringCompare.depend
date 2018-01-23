@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1516738053 source:c:\users\emife\documents\poo\stringcompare\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+
