@@ -66,11 +66,11 @@ void StudentRegistry(){
 void AgeSearch(){
 
     // Checks if file was created or not.
-    if(fileCreated){
 
-        iCount = 0;
-        inFile.open("Students.txt");
+    iCount = 0;
+    inFile.open("Students.txt");
 
+    if(inFile.is_open()){
         // Asks for age to look for
         cout << "\n + Which age are you looking for?\n";
         cin >> searchAge;
@@ -87,7 +87,6 @@ void AgeSearch(){
                 cout << "+ " << studentName << " is " << studentAge << endl;
                 iCount ++;
             }
-
         }
 
         // Prints the amount of students that are older than the given age.
