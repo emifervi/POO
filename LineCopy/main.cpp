@@ -32,6 +32,9 @@ int LineCount (string inputFile){
         iLines ++;
     }
 
+    // Close file.
+    readFile.close();
+
     // Returns counter with the amount of lines that the input file has.
     return iLines;
 }
