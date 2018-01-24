@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1516743753 source:c:\users\emife\documents\poo\poo\linecopy\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+

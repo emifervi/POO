@@ -1,5 +1,5 @@
 /*
- * The program asks the user for a file name to be open and the amount of lines they want to copy from the file (the las 'n' lines, provided by the user).
+ * The program asks the user for a file name to be open and the amount of lines they want to copy from the file (the last 'n' lines, provided by the user).
  * then the program calculates the amount of lines the file has, and at last scans the file looking for the lines asked by the user, then it copies them in
  * an output file.
  * Author: Emilio Fernando Alonso Villa A00959385.
@@ -32,7 +32,7 @@ int LineCount (string inputFile){
         iLines ++;
     }
 
-    // Close file.
+    // Close file.gi
     readFile.close();
 
     // Returns counter with the amount of lines that the input file has.
