@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1517411862 source:c:\users\emilio villa\documents\proyectos\librarysystem\main.cpp
+	<iostream>
+	<string>
+	"Book.h"
+
+1517411937 c:\users\emilio villa\documents\proyectos\librarysystem\book.h
+
