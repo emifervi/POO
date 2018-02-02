@@ -9,6 +9,7 @@ private:
 
 public:
     // Constructor method.
+    Room ();
     Room(int cap, string name, int room);
     // Access and modification methods.
     void setCapacity(int c);
@@ -21,8 +22,14 @@ public:
     int getRoomNumber();
     void singStudents(int s);
 };
-
-// Constructor that takes the arguments given by user and starts signed up at 0;
+// Default constructor.
+Room::Room(){
+    capacity = 0;
+    className = "";
+    roomNum = 0;
+    signedUp = 0;
+}
+// Constructor that takes the arguments given by user and starts signed up at 0.
 Room::Room(int cap, string name, int room){
     capacity = cap;
     className = name;
