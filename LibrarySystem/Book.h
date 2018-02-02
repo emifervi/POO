@@ -24,11 +24,14 @@ public:
     void display();
 };
 
+// Constructor that takes the arguments to create the object.
 Book::Book(string s, int i, double p){
     author = s;
     title = i;
     price = p;
 }
+
+// Methods to set the modify of the attributes.
 void Book::setAuthor(string a){
     author = a;
 }
@@ -38,6 +41,8 @@ void Book::setTitle(int i){
 void Book::setPrice(double p){
     price = p;
 }
+
+// Methods to access the value of the attributes.
 string Book::getAuthor(){
     return author;
 }
@@ -47,10 +52,17 @@ int Book::getTitle(){
 double Book::getPrice(){
     return price;
 }
+
+/*
+ * Functional methods
+ */
+ // Raises the price of the book in turn by a given percentage.
 double Book::raisePrice(double p){
     price += ((p * price)/100.00);
     return price;
 }
+
+// Displays the info of the book in the console.
 void Book::display(){
     cout << "Title: " << title << endl;
     cout << "Author: " << author << endl;
