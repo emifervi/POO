@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1517529721 source:c:\users\emilio villa\documents\proyectos\classroom\main.cpp
+	<iostream>
+	<string>
+	"Room.h"
+
+1517529818 c:\users\emilio villa\documents\proyectos\classroom\room.h
+
