@@ -10,6 +10,7 @@ private:
 
 public:
     // Constructor method;
+    Book();
     Book(string s, int i, double p);
 
     // Access and modification methods;
@@ -23,7 +24,12 @@ public:
     double raisePrice(double p);
     void display();
 };
-
+// Default Constructor.
+Book::Book (){
+    author = "";
+    title = 0;
+    price = 0.0;
+}
 // Constructor that takes the arguments to create the object.
 Book::Book(string s, int i, double p){
     author = s;
