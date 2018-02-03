@@ -1,10 +1,13 @@
 # depslib dependency file v1.0
-1517622040 source:c:\users\emilio villa\documents\proyectos\curp\main.cpp
+1517673922 source:c:\users\emife\documents\poo\curp\main.cpp
 	<iostream>
 	<fstream>
 	<string>
-	<locale>
+	<cstdlib>
+	<time.h>
+	<sstream>
+	<cmath>
 	"Citizen.h"
 
-1517622200 c:\users\emilio villa\documents\proyectos\curp\citizen.h
+1517673685 c:\users\emife\documents\poo\curp\citizen.h
 

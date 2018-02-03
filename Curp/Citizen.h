@@ -14,20 +14,23 @@ private:
     string gender;
     string state;
     string curp;
-
+    string penDigit;
+    string lastDigit;
 public:
+    Citizen();
     // Access and modification methods.
     void setFirstName(string fN);
     void setSecondName(string sN);
     void setLastName(string lN);
     void setMothersName(string sLN);
-    void resetMothersName();
     void setYear(string y);
     void setMonth(string m);
     void setDay(string d);
     void setGender(string g);
     void setState(string s);
     void setCurp(string c);
+    void setPenDigit(string pD);
+    void setLastDigit(string lD);
     string getFirstName();
     string getSecondName();
     string getLastName();
@@ -38,10 +41,31 @@ public:
     string getGender();
     string getState();
     string getCurp();
+    string getPenDigit();
+    string getLastDigit();
     // Functional method.
-    string generateCurp();
+    void fourInitials();
+    void dateDigits();
+    void genderChar();
+    void stateInitials();
+    void lastConsonants();
+    void securityNum();
+    void genLastDigit();
 };
 
+// Constructor
+Citizen::Citizen(){
+    firstName = "";
+    secondName = "";
+    lastName = "";
+    mothersName = "";
+    year = "";
+    month = "";
+    day = "";
+    gender = "";
+    state = "";
+    curp = "";
+}
 // Declaration and development of the methods.
 void Citizen::setFirstName(string fN){
     firstName = fN;
@@ -55,12 +79,15 @@ void Citizen::setLastName(string lN){
 void Citizen::setMothersName(string sLN){
     mothersName = sLN;
 }
-void Citizen::resetMothersName(){
-    mothersName = " ";
-}
 void Citizen::setYear(string y){
     year = y;
 }
+/*
+ * The function takes a string with the name of the month the person was born and checks which case it ism
+ * then assigns the numeric value of the given month as the month variable.
+ * Arguments: string passed by main.
+ * Returns: none.
+ */
 void Citizen::setMonth(string m){
     if(m == "enero"){
         month = "01";
@@ -105,6 +132,12 @@ void Citizen::setDay(string d){
 void Citizen::setGender(string g){
     gender = g;
 }
+/*
+ * The function takes a string with the name of a birth place, then converts it to upper to eliminate case sensitive problems
+ * after that check which birth place it is and assign key letters as the state variable.
+ * Arguments: string from main.
+ * Returns: none.
+ */
 void Citizen::setState(string st){
     string s = "";
     for (int i = 0; i < st.length(); i++){
@@ -215,6 +248,12 @@ void Citizen::setState(string st){
 void Citizen::setCurp(string c){
     curp = c;
 }
+void Citizen::setPenDigit(string pD){
+    penDigit = pD;
+}
+void Citizen::setLastDigit(string lD){
+    lastDigit = lD;
+}
 string Citizen::getFirstName(){
     return firstName;
 }
@@ -245,29 +284,46 @@ string Citizen::getState(){
 string Citizen::getCurp(){
     return curp;
 }
-string Citizen::generateCurp(){
+string Citizen::getPenDigit(){
+    return penDigit;
+}
+string Citizen::getLastDigit(){
+    return lastDigit;
+}
+/*
+ * The function gets the first four initials of the CURP with the name, second name, last name and mothers name.
+ * Arguments: none.
+ * Returns: none, but modifies curp.
+ */
+void Citizen::fourInitials(){
+    // Variables to be used by the function
     string key = "";
     int appearance = 0;
     bool flag = false;
 
+    // Scans through the last name and gets the first letter and first vowel
     for (int i = 0; i < lastName.length() - 1; i++){
         if (i == 0){
             key += lastName[i];
         }
         else if ((lastName[i] == 'a' || lastName[i] == 'e' || lastName[i] == 'i' || lastName[i] == 'o' || lastName[i] == 'u') && appearance < 1){
-            appearance ++;https://docs.google.com/document/d/1u1Zq3T-fstKQoDMSTe85PKkbQMsu65w2Qcp8UIkSBuM/edit?usp=sharing
+            appearance ++;
             key += toupper(lastName[i]);
             flag = true;
         }
     }
 
+    // If there are no vowel get X
     if (!flag){
         key += "X";
     }
 
-    if (mothersName == " "){
+    // If the person has no mothers name get X
+    if (mothersName == ""){
         key += "X";
     }
+
+    // Get mothers name first letter and attend the cases of María and José as first name without second name.
     else {
         key += mothersName[0];
     }
@@ -275,63 +331,181 @@ string Citizen::generateCurp(){
     if ((firstName == "José" || firstName == "María") && secondName != ""){
         key += secondName[0];
     }
+
+    // First name different from José or María
     else{
         key += firstName[0];
     }
 
-    key += year[year.length() -2];
-    key += year[year.length() -1];
-    key += month;
-    key += day;
+    // Add to curp.
+    curp += key;
+}
+/*
+ * The function gets the digits from the year, month and day and adds them to the curp.
+ * Arguments: none.
+ * Returns: none, but modifies curp.
+ */
+void Citizen::dateDigits(){
+    // Variable to store the chars
+    string digits = "";
 
-    if (gender == "masculino"){
-        key += "H";
-    }
+    // Add the respective charts of the year, month and date to the digits string.
+    digits += year[year.length() - 2];
+    digits += year[year.length() - 1];
+    digits += month;
+    digits += day;
+
+    // Add digits to curp.
+    curp+= digits;
+}
+
+/*
+ * The function checks the gender of the person and gets M for women and H for men.
+ * Arguments: none.
+ * Returns: none, but modifies curp.
+ */
+void Citizen::genderChar(){
+    // Variables for the function
+    string genChar;
+
+    // Checks if they are feminine or masculine and assigns the respective character
     if (gender == "femenino"){
-        key += "M";
+        genChar = "M";
+    }
+    else if (gender == "masculino"){
+        genChar = "H";
     }
 
-    key += state;
-    appearance = 0;
-    flag = false;
+    // Adds the gender character to the curp.
+    curp += genChar;
+}
+/*
+ * The functions gets the initials from each state and adds them to the CURP.
+ * Arguments: none.
+ * Returns: none, but modifies curp.
+ */
+void Citizen::stateInitials(){
+    // Variable for function.
+    string initials = "";
+
+    // Store initials and add them to the curp.
+    initials += state;
+    curp += initials;
+}
+/*
+ * The functions get the internal consonants of the last name, mothers name, and first name and adds them to the curp.
+ * Arguments: none.
+ * Returns: none, but modifies curp.
+ */
+void Citizen::lastConsonants(){
+    // Variables for the function.
+    string consonants = "";
+    int appearance = 0;
+    bool flag = false;
+
+    // Scans the last name for the first internal consonant, if there are no consonants add an X.
     for (int i = 1; i < lastName.length() - 1; i++){
-        if (lastName[i] != 'a' && lastName[i] != 'e' && lastName[i] != 'i' && lastName[i] != 'o' && lastName[i] != 'u' && appearance < 1){
-            key += toupper(lastName[i]);
-            appearance++;
+        if (lastName[i] != 'a' && lastName[i] != 'e' && lastName[i] != 'i' && lastName[i] != 'o' && lastName[i] != 'u' && appearance <1){
+            consonants += toupper(lastName[i]);
+            appearance ++;
             flag = true;
         }
     }
+
     if (!flag){
-        key += "X";
+        consonants += "X";
     }
 
-    appearance = 0;
-    flag = false;
+    // If there is no mothers name add an X.
+    if (mothersName == ""){
+        consonants += "X";
+    }
 
-    cout << mothersName << endl;
-    for (int i = 1; i < mothersName.length() - 1; i++){
-        if (lastName[i] != 'a' && mothersName[i] != 'e' && mothersName[i] != 'i' && mothersName[i] != 'o' && mothersName[i] != 'u' && appearance < 1){
-            key += toupper(mothersName[i]);
-            appearance++;
-            flag = true;
+    // If there is a mothers name scan it for the first internal consonant, if there is none add X.
+    else{
+        appearance = 0;
+        flag = false;
+        for (int i = 1; i < mothersName.length() - 1; i++){
+            if (mothersName[i] != 'a' && mothersName[i] != 'e' && mothersName[i] != 'i' && mothersName[i] != 'o' && mothersName[i] != 'u'
+                && appearance < 1 ){
+                    consonants += toupper(mothersName[i]);
+                    appearance++;
+                    flag = true;
+                }
+        }
+        if (!flag){
+            consonants += "X";
         }
     }
-    if (!flag){
-        key += "X";
-    }
 
+    // Scan first name for the first internal consonant, if there is none add X.
     appearance = 0;
     flag = false;
     for (int i = 1; i < firstName.length() - 1; i++){
-        if (firstName[i] != 'a' && firstName[i] != 'e' && firstName[i] != 'i' && firstName[i] != 'o' && firstName[i] != 'u' && appearance < 1){
-            key += toupper(firstName[i]);
-            appearance++;
-            flag = true;
-        }
+        if (firstName[i] != 'a' && firstName[i] != 'e' && firstName[i] != 'i' && firstName[i] != 'o' && firstName[i] != 'u'
+            && appearance < 1){
+                consonants += toupper(firstName[i]);
+                appearance ++;
+                flag = true;
+            }
     }
     if (!flag){
-        key += "X";
+        consonants += "X";
     }
-    return key;
+
+    // Add the last consonants to the curp.
+    curp += consonants;
+}
+/*
+ * The function takes an int as an arguments and uses stringstream library to convert into string.
+ * Arguments: integer values.
+ * Returns: integer turned int string.
+ */
+string itos (int i){
+    // Variable to use stream string.
+    stringstream ss;
+
+    // Take the int as argument for string steam.
+    ss << i;
+
+    // Returns int as string
+    return ss.str();
+}
+/*
+ * The function scans a string and converts it into an integer.
+ * Arguments: string with numbers inside.
+ * Returns: numeric string turned into integer value.
+ */
+int stoi(string n){
+    // Variable to store the values of each part of the numeric string.
+    int num = 0;
+
+    // Scan through string and convert into number subtracting the char '0' and multiplying by 10 to the nth.
+    for (int i = 0; i < n.length(); i++){
+        num += (n[i] - '0') * pow(10, n.length() - 1 - i);
+    }
+
+    // Return string turned into a number.
+    return num;
+}
+
+/*
+ * The function takes the penultimate digit and adds it to the curp.
+ * Arguments: none.
+ * Returns: none, but modifies curp.
+ */
+void Citizen::securityNum(){
+    // Add penultimate digit to curp.
+    curp += penDigit;
+}
+
+/*
+ * The function takes the last digit and adds it to the curp.
+ * Arguments: none.
+ * Returns: none, but modifies curp.
+ */
+void Citizen::genLastDigit(){
+    // Add last digit to curp;
+    curp += lastDigit;
 }
 #endif // CITIZEN_H_INCLUDED

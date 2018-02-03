@@ -1,18 +1,22 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <locale>>
+#include <cstdlib>
+#include <time.h>
+#include <sstream>
+#include <cmath>
 using namespace std;
 #include "Citizen.h"
 
 ifstream inpFile;
+ofstream outFile;
 Citizen person;
-
 /*
  * The word counter function, takes a string and counts how many words does the string has.
  * Arguments: a string by the function that calls it.
  * Returns: an integer with the number of words a string has.
  */
+
 int wordCounter (string sWord){
     int numWords = 1;
 
@@ -41,7 +45,7 @@ string reverseString(string s){
  * Arguments: string name provided by the main function.
  * Returns: none.
  */
-void passName(string sName){
+void passName(string sName, int index, Citizen arrPeople[]){
 
     // Variables to be used in the function
     string lName = "", fName = "", mName = "", secName = "";
@@ -60,14 +64,14 @@ void passName(string sName){
         lName += sName[i];
     }
 
-    person.setLastName(lName);
+    arrPeople[index].setLastName(lName);
 
     // Case of one last name and one name.
     if (names == 2){
         for(int i = space + 1; i < sName.length(); i++){
             fName += sName[i];
         }
-        person.setFirstName(fName);
+        arrPeople[index].setFirstName(fName);
     }
 
     // Rest of the cases
@@ -80,7 +84,7 @@ void passName(string sName){
         }
 
         mName = sName.substr(space + 1, appear);
-        person.setMothersName(mName);
+        arrPeople[index].setMothersName(mName);
 
         // In the case of three names, it scans for the first name, from the second space until the end.
         if (names == 3){
@@ -92,7 +96,7 @@ void passName(string sName){
             }
 
             fName = sName.substr(appear + 1, space);
-            person.setFirstName(fName);
+            arrPeople[index].setFirstName(fName);
         }
 
         // In the case of four names.
@@ -106,14 +110,14 @@ void passName(string sName){
             }
 
             fName = sName.substr(appear + 1, space);
-            person.setFirstName(fName);
+            arrPeople[index].setFirstName(fName);
 
             // Finally scans for the second name from the last space until the end.
             for (int i = appear + space + 2; i < sName.length(); i++){
                 secName += sName[i];
             }
 
-            person.setSecondName(secName);
+            arrPeople[index].setSecondName(secName);
         }
     }
 }
@@ -124,7 +128,7 @@ void passName(string sName){
  * Arguments: a string passed from main function.
  * Returns: none.
  */
-void passDate(string d){
+void passDate(string d, int index, Citizen arrPeople[]){
 
     // Variables to be used by the loops and to store the date, year and month;
     string year = "", month = "", day = "";
@@ -135,7 +139,7 @@ void passDate(string d){
     }
 
     // Pass year as an attribute.
-    person.setYear(reverseString(year));
+    arrPeople[index].setYear(reverseString(year));
 
     // Scan from the 6th place until the space to get the month and copy it in another string.
     for (int i = 6; d[i] != ' '; i++){
@@ -143,7 +147,7 @@ void passDate(string d){
     }
 
     // Pass month as an attribute.
-    person.setMonth(month);
+    arrPeople[index].setMonth(month);
 
     // Scan from the start until a space to get day and copy it in another string;
     for (int i = 0; d[i] != ' '; i++){
@@ -151,7 +155,7 @@ void passDate(string d){
     }
 
     // Pass day as an attribute.
-    person.setDay(day);
+    arrPeople[index].setDay(day);
 }
 
 /*
@@ -160,13 +164,24 @@ void passDate(string d){
  * Returns: zero value to end program.
  */
 int main(){
-
+    srand(time(NULL));
     // Open file to be used in the main program
     inpFile.open("Ejemplo.txt");
-    // Variables to scan the file and pass arguments to a function.
-    int appearance, i, position, lenght;
-    string info, name = "", date = "", gender = "", state = "";
+    outFile.open("CURP.txt");
 
+    // Variables to scan the file and pass arguments to a function.
+    int appearance, i, position, lenght, iSize = 0, fileLine = 0;
+    string info, name = "", date = "", gender = "", state = "", security = "";
+
+    while(getline(inpFile, info)){
+        iSize ++;
+    }
+
+    inpFile.close();
+
+    Citizen arrPerson[iSize];
+
+    inpFile.open("Ejemplo.txt");
     // Scan every line of the file and pass the string to variable "info"
     while(getline(inpFile, info)){
         i = 0;
@@ -192,7 +207,8 @@ int main(){
         }
 
         // Pass gender string as gender attribute.
-        person.setGender(gender);
+        arrPerson[fileLine].setGender(gender);
+
         appearance = 0;
         lenght = 0;
         for (int j = info.length() - 1; appearance < 6; j--){
@@ -215,8 +231,7 @@ int main(){
             }
         }
         // Pass state as state attribute.
-        person.setState(state);
-
+        arrPerson[fileLine].setState(state);
         appearance = 1;
 
         // Scans through the line from the end to find the date of birth counting spaces.
@@ -231,17 +246,41 @@ int main(){
         date = reverseString(date);
 
         // Calls the PassName function and resets the name string that is passed to the function.
-        passName(name);
-        passDate(date);
+        passName(name, fileLine, arrPerson);
+        passDate(date, fileLine, arrPerson);
 
-        cout << person.generateCurp() << endl;
+        // Call functional class methods
+        arrPerson[fileLine].fourInitials();
+        arrPerson[fileLine].dateDigits();
+        arrPerson[fileLine].genderChar();
+        arrPerson[fileLine].stateInitials();
+        arrPerson[fileLine].lastConsonants();
+
+        // Generate random numbers based on the year the person was born and pass them as attributes.
+        if (stoi(arrPerson[fileLine].getYear()) <= 1999){
+            arrPerson[fileLine].setPenDigit(itos(rand() % 10));
+        }
+
+        else if (stoi(arrPerson[fileLine].getYear()) > 1999){
+            security += char((rand() % 26) + 'A');
+            arrPerson[fileLine].setPenDigit(security);
+        }
+        arrPerson[fileLine].setLastDigit(itos(rand() % 10));
+        arrPerson[fileLine].securityNum();
+
+        // Call the method to get the curp modified by the previous methods.
+        outFile << arrPerson[fileLine].getCurp() << endl;
+
+        // Reset variables.
         date = "";
         name = "";
         gender = "";
         state = "";
+        fileLine++;
     }
 
     inpFile.close();
+    outFile.close();
 
     return 0;
 }
