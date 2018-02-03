@@ -258,6 +258,7 @@ int main(){
 
         // Generate random numbers based on the year the person was born and pass them as attributes.
         if (stoi(arrPerson[fileLine].getYear()) <= 1999){
+
             arrPerson[fileLine].setPenDigit(itos(rand() % 10));
         }
 
@@ -267,6 +268,7 @@ int main(){
         }
         arrPerson[fileLine].setLastDigit(itos(rand() % 10));
         arrPerson[fileLine].securityNum();
+        arrPerson[fileLine].genLastDigit();
 
         // Call the method to get the curp modified by the previous methods.
         outFile << arrPerson[fileLine].getCurp() << endl;
