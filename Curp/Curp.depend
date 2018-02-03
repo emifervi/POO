@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1517622040 source:c:\users\emilio villa\documents\proyectos\curp\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<locale>
+	"Citizen.h"
+
+1517622200 c:\users\emilio villa\documents\proyectos\curp\citizen.h
+
