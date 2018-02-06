@@ -59,7 +59,7 @@ int main(){
     srand(unsigned (time(NULL)));
 
     // Variables to store the degree (provided by the user), the maximum number, and the number of iterations.
-    int degree, iMax = 1000000000, iF = -1;
+    int degree, iMax = 1000000000, iF = -1, roots;
 
     // Variables to store the result and the X of the function.
     double result, randX;
@@ -72,35 +72,57 @@ int main(){
     cin >> degree;
 
     // Add one to the degree to compensate for term X^0 and declare array to store the coefficients.
+    roots = degree;
     degree++;
     double arrCoefficients[degree];
 
+    cout << roots << " " << degree << endl;
     // Ask user to provide the coefficients one by one and store them in the array.
     cout << "Introduce por favor los coeficientes de tu polinomio\n";
     for (int i = 0; i < degree; i++){
         cout << "\n+ Introduce el coeficiente de grado " << degree - i - 1 << ": ";
         cin >> arrCoefficients[i];
     }
-
     do{
-        // Call the synthetic division function passing the coefficients, degree and x as arguments.
-        result = syntheticDiv(degree, randX, arrCoefficients);
-        // update value of X and number of iterations.
-        randX -= result;
-        iF ++;
+        do{
+            // Call the synthetic division function passing the coefficients, degree and x as arguments.
+            result = syntheticDiv(degree, randX, arrCoefficients);
+            // update value of X and number of iterations.
+            randX -= result;
+            iF ++;
 
-        // Print value of current X, current F(x)/F'(x) and the number of iterations.
-        cout << "Xn = " << randX << endl;
-        cout << "Fx / F'x = " << result << endl;
-        cout << "Iteraciones: " << iF << endl;
+            // Print value of current X, current F(x)/F'(x) and the number of iterations.
+            /*
+            cout << "Xn = " << randX << endl;
+            cout << "Fx / F'x = " << result << endl;
+            cout << "Iteraciones: " << iF << endl;
+            */
+            // Check if it need another round.
+        }while (abs(result) > .0001);
 
-        // Check if it need another round.
-    }while (abs(result) > .0001);
+        // Print the root and its evaluation.
+        cout << "\nThe root is: " << randX << endl;
+        cout << "Evaluated at: " << result << endl;
 
-    // Print the root and its evaluation.
-    cout << "\nThe root is: " << randX << endl;
-    cout << "Evaluated at: " << result << endl;
+        // Reduce the degree of the polynomial evaluating with the root
+        for(int i = 0; i < degree; i++){
+            if(i == 0){
+                result = arrCoefficients[i];
+                arrCoefficients[i] = result;
+            }
+            else{
+                result = (result * randX) + arrCoefficients[i];
+                if (abs(result) <= .0001){
+                    result = 0;
+                }
+                arrCoefficients[i] = result;
+            }
+        }
 
+        // Update the degree of the polynomial and the number of roots found.
+        degree--;
+        roots--;
+    }while (roots > 0);
 
     return 0;
 }
