@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1517878868 source:c:\users\emilio villa\documents\proyectos\birgevieta\main.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<cmath>
+
