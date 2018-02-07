@@ -165,13 +165,16 @@ void passDate(string d, int index, Citizen arrPeople[]){
  */
 int main(){
     srand(time(NULL));
-    // Open file to be used in the main program
-    inpFile.open("Ejemplo.txt");
-    outFile.open("CURP.txt");
-
     // Variables to scan the file and pass arguments to a function.
     int appearance, i, position, lenght, iSize = 0, fileLine = 0;
-    string info, name = "", date = "", gender = "", state = "", security = "";
+    string fileName, info, name = "", date = "", gender = "", state = "", security = "";
+
+    cout << "Type in the name of the file you will open:\n";
+    getline(cin, fileName);
+
+    // Open file to be used in the main program
+    inpFile.open(fileName.c_str());
+    outFile.open("CURP.txt");
 
     while(getline(inpFile, info)){
         iSize ++;
@@ -278,6 +281,7 @@ int main(){
         name = "";
         gender = "";
         state = "";
+        security = "";
         fileLine++;
     }
 

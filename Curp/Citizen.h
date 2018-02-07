@@ -426,8 +426,7 @@ void Citizen::lastConsonants(){
         appearance = 0;
         flag = false;
         for (int i = 1; i < mothersName.length() - 1; i++){
-            if (mothersName[i] != 'a' && mothersName[i] != 'e' && mothersName[i] != 'i' && mothersName[i] != 'o' && mothersName[i] != 'u'
-                && appearance < 1 ){
+            if (mothersName[i] != 'a' && mothersName[i] != 'e' && mothersName[i] != 'i' && mothersName[i] != 'o' && mothersName[i] != 'u' && appearance < 1 ){
                     consonants += toupper(mothersName[i]);
                     appearance++;
                     flag = true;
@@ -438,16 +437,28 @@ void Citizen::lastConsonants(){
         }
     }
 
-    // Scan first name for the first internal consonant, if there is none add X.
+    // Checks for the cases of José and María.
     appearance = 0;
     flag = false;
-    for (int i = 1; i < firstName.length() - 1; i++){
-        if (firstName[i] != 'a' && firstName[i] != 'e' && firstName[i] != 'i' && firstName[i] != 'o' && firstName[i] != 'u'
-            && appearance < 1){
-                consonants += toupper(firstName[i]);
+    if (secondName != "" && (firstName == "José" || firstName == "María")){
+        for (int i = 1; i < secondName.length() - 1; i++){
+            if (secondName[i] != 'a' && secondName[i] != 'e' && secondName[i] != 'i' && secondName[i] != 'o' && secondName[i] != 'u' && appearance < 1){
+                consonants += toupper(secondName[i]);
                 appearance ++;
                 flag = true;
             }
+        }
+    }
+
+    // Scan first name for the first internal consonant, if there is none add X.
+    else if (firstName != "José" && firstName != "María"){
+        for (int i = 1; i < firstName.length() - 1; i++){
+            if (firstName[i] != 'a' && firstName[i] != 'e' && firstName[i] != 'i' && firstName[i] != 'o' && firstName[i] != 'u' && appearance < 1){
+                    consonants += toupper(firstName[i]);
+                    appearance ++;
+                    flag = true;
+            }
+        }
     }
     if (!flag){
         consonants += "X";

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1517674966 source:c:\users\emife\documents\poo\curp\main.cpp
+1518006579 source:c:\users\emilio villa\documents\proyectos\curp\main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -9,5 +9,5 @@
 	<cmath>
 	"Citizen.h"
 
-1517676496 c:\users\emife\documents\poo\curp\citizen.h
+1518007291 c:\users\emilio villa\documents\proyectos\curp\citizen.h
 
