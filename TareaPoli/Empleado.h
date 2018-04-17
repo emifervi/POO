@@ -18,9 +18,9 @@ public:
     string getApellido();
     int getNomina();
     double getSueldo();
-    
+
     // Metodos virtuales puros.
-    virtual double calculaPago() = 0;
+    virtual double calcularPago() = 0;
     virtual void mostrar() = 0;
 
 protected:
@@ -34,7 +34,7 @@ protected:
 /**
  * Constructor default.
  * Da valores predeterminados a los atributos del objeto.
- * No recibe argumentos.
+ * Argumentos: ninguno.
  */
 Empleado::Empleado(){
     nombre = "";
@@ -45,7 +45,7 @@ Empleado::Empleado(){
 /**
  * Constructor con parametros.
  * Permite al usuario crear un objeto con parametros predefinidos por él.
- * Recibe los valores necesarios para crear el objeto.
+ * Argumentos: valores para crear objeto.
  */
 Empleado::Empleado(string n, string a, int iNomina, double sueldo){
     nombre = n;
@@ -56,24 +56,28 @@ Empleado::Empleado(string n, string a, int iNomina, double sueldo){
 
 /**
  * Metodo de modificacion del nombre.
+ * Argumentos: recibe el nombre.
  */
 void Empleado::setNombre(string n){
     nombre = n;
 }
 /**
  * Metodo de modificacion del apellido.
+ * Argumentos: recibe el apellido.
  */
 void Empleado::setApellido(string a){
     apellido = a;
 }
 /**
  * Metodo de modificacion de la nomina.
+ * Argumentos: recibe la nomina.
  */
 void Empleado::setNomina(int iNomina){
-    nomina = nom;
+    nomina = iNomina;
 }
 /**
  * Metodo de modificacion del sueldo.
+ * Argumentos: recibe el sueldo.
  */
 void Empleado::setSueldo(double sueldo){
     sueldoBase = sueldo;
@@ -81,24 +85,28 @@ void Empleado::setSueldo(double sueldo){
 
 /**
  * Metodo de acceso al nombre.
+ * Retornos: nombre.
  */
 string Empleado::getNombre(){
     return nombre;
 }
 /**
  * Metodo de acceso al apellido.
+ * Retornos: apellido.
  */
 string Empleado::getApellido(){
     return apellido;
 }
 /**
  * Metodo de acceso a la nomina.
+ * Retornos: nomina.
  */
 int Empleado::getNomina(){
     return nomina;
 }
 /**
  * Metodo de acceso al sueldo.
+ * Retornos: sueldo base.
  */
 double Empleado::getSueldo(){
     return sueldoBase;
